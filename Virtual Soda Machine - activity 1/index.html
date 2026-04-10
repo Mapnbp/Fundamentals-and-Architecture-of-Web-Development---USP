@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maquina de Refri Virtual</title>
+    <link rel="stylesheet" href="estilo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Gatinhos subindo ao fundo -->
+    <div class="fundo-gatinhos" id="fundo-gatinhos"></div>
+
+    <div class="container-principal">
+
+        <!-- Maquina de Refri -->
+        <div class="maquina pixel-borda">
+
+            <!-- Parafusos nos cantos -->
+            <div class="parafuso parafuso-tl"></div>
+            <div class="parafuso parafuso-tr"></div>
+            <div class="parafuso parafuso-bl"></div>
+            <div class="parafuso parafuso-br"></div>
+
+            <!-- Topo: logo + LEDs decorativos -->
+            <div class="topo-maquina">
+                <div class="luzes-led">
+                    <div class="led"></div>
+                    <div class="led"></div>
+                    <div class="led"></div>
+                </div>
+                <h1 class="logo-maquina">SODA<span>ARCADE</span></h1>
+                <div class="luzes-led">
+                    <div class="led"></div>
+                    <div class="led"></div>
+                    <div class="led"></div>
+                </div>
+            </div>
+
+            <!-- Faixa horizontal geometrica decorativa -->
+            <div class="faixa-decorativa"></div>
+
+            <!-- Interior: vitrine + painel de controle -->
+            <div class="interior-maquina">
+
+                <!-- Barra lateral decorativa (quadradinhos) -->
+                <div class="barra-lateral">
+                    <div class="decoracao-quadrado"></div>
+                    <div class="decoracao-quadrado"></div>
+                    <div class="decoracao-quadrado"></div>
+                    <div class="decoracao-quadrado"></div>
+                    <div class="decoracao-quadrado"></div>
+                    <div class="decoracao-quadrado"></div>
+                </div>
+
+                <!-- Vitrine dos refrigerantes (carregada via JS) -->
+                <div class="vitrine pixel-borda" id="vitrine">
+                    <div class="carregando">CARREGANDO...</div>
+                </div>
+
+                <!-- Painel de controle -->
+                <div class="painel-controle pixel-borda">
+
+                    <!-- Visor LED de saldo -->
+                    <div class="visor pixel-borda">
+                        <div class="titulo-visor">SALDO INSERIDO</div>
+                        <div class="valor-visor" id="visor-saldo">R$ 0,00</div>
+                    </div>
+
+                    <!-- Botoes gerados via JS -->
+                    <div class="grade-botoes" id="grade-botoes"></div>
+
+                    <!-- Tela de mensagens (sem alert!) -->
+                    <div class="tela-mensagem pixel-borda" id="tela-mensagem">
+                        Insira moedas!
+                    </div>
+
+                    <!-- Fenda de moedas (zona de drop) -->
+                    <div class="area-pagamento">
+                        <div class="envoltorio-fenda">
+                            <div class="fenda-moeda pixel-borda" id="fenda-moeda">
+                                <div class="buraco-fenda"></div>
+                            </div>
+                            <span>Insira aqui</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Rodape decorativo: termometro + info + botao de musica -->
+            <div class="rodape-maquina">
+                <div class="termometro">
+                    <div class="mercurio"></div>
+                </div>
+                <div class="info-rodape">
+                    TEMP: <span>4 C</span><br>
+                    STATUS: <span>OK</span><br>
+                    VER: <span>1.0.0</span>
+                </div>
+                <div class="btn-musica-wrapper">
+                    <button id="btn-musica">MUSICA: OFF</button>
+                </div>
+            </div>
+
+            <!-- Bandeja de saida (dispensador) -->
+            <div class="dispensador pixel-borda">
+                <div class="tampa-dispensador" id="tampa-dispensador">PUSH</div>
+                <div class="area-saida" id="area-saida"></div>
+            </div>
+
+        </div>
+
+        <!-- Carteira do usuario -->
+        <div class="envoltorio-carteira pixel-borda">
+            <h2 class="titulo-carteira">CARTEIRA</h2>
+            <p class="instrucao-carteira">Arraste moedas para a maquina</p>
+
+            <!-- Resumo de quantas moedas e total -->
+            <div class="resumo-dinheiro pixel-borda">
+                <div class="linha-resumo">
+                    <span class="label-resumo">25c x</span>
+                    <span class="qtd-resumo" id="cont-25">0</span>
+                </div>
+                <div class="linha-resumo">
+                    <span class="label-resumo">50c x</span>
+                    <span class="qtd-resumo" id="cont-50">0</span>
+                </div>
+                <div class="linha-resumo">
+                    <span class="label-resumo">R$1 x</span>
+                    <span class="qtd-resumo" id="cont-100">0</span>
+                </div>
+                <div class="linha-resumo total-resumo">
+                    <span class="label-resumo">TOTAL</span>
+                    <span class="qtd-resumo" id="total-carteira">R$ 0,00</span>
+                </div>
+            </div>
+
+            <!-- Area das moedas soltas (geradas via JS) -->
+            <div class="carteira" id="area-carteira"></div>
+        </div>
+
+    </div>
+
+    <script src="maquina.js"></script>
+</body>
+</html>

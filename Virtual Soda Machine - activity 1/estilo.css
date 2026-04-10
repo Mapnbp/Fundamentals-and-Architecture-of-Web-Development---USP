@@ -1,0 +1,823 @@
+/* =================================================================
+   MAQUINA DE REFRI - PIXEL ART STYLE
+   Paleta: Azul escuro, vermelho, laranja, branco + detalhes geometricos
+   ================================================================= */
+
+:root {
+    --azul-escuro:   #1d2b53;
+    --azul-medio:    #29adff;
+    --azul-claro:    #83c5e5;
+    --azul-vivo:     #00a8cc;
+    --vermelho:      #ff004d;
+    --vermelho-dark: #8b0000;
+    --vermelho-mid:  #cc0040;
+    --laranja:       #ffa300;
+    --laranja-claro: #ffec27;
+    --branco:        #fff1e8;
+    --cinza-claro:   #c2c3c7;
+    --cinza-medio:   #8b9eb7;
+    --cinza-escuro:  #5f574f;
+    --preto:         #000000;
+    --verde:         #00e436;
+    --verde-escuro:  #007420;
+    --roxo:          #7e2553;
+    --marrom:        #ab5236;
+    --amarelo:       #ffec27;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: var(--azul-escuro);
+    background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 20px 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--branco);
+    overflow: hidden;
+    position: relative;
+}
+
+/* ==============================
+   GATINHOS DO FUNDO
+   ============================== */
+.fundo-gatinhos {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.gatinho {
+    position: absolute;
+    font-size: 5rem;
+    opacity: 0.22;
+    animation: subirGatinho linear infinite;
+    filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.5));
+    user-select: none;
+}
+
+@keyframes subirGatinho {
+    0%   { transform: translateY(110vh) rotate(-5deg); }
+    50%  { transform: translateY(50vh)  rotate(5deg);  }
+    100% { transform: translateY(-10vh) rotate(-5deg); }
+}
+
+/* ==============================
+   LAYOUT PRINCIPAL
+   ============================== */
+.container-principal {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 30px;
+    align-items: flex-end;
+    padding: 20px;
+}
+
+/* Borda pixel art com sombra para simular volumes */
+.pixel-borda {
+    border: 4px solid var(--preto);
+    box-shadow:
+        4px  4px 0 var(--cinza-escuro),
+        8px  8px 0 rgba(0,0,0,0.25),
+       -2px  0   0 var(--preto),
+        0   -2px 0 var(--preto);
+}
+
+/* ==============================
+   MAQUINA: ESTRUTURA PRINCIPAL
+   ============================== */
+.maquina {
+    background: linear-gradient(160deg, var(--vermelho) 0%, var(--vermelho-mid) 55%, var(--vermelho-dark) 100%);
+    padding: 20px 24px 20px 24px;
+    width: 680px;
+    position: relative;
+    /* Acabamento inferior tipo base de vending machine */
+    border-bottom: 16px solid #600020;
+}
+
+/* Faixa lateral esquerda reflexo de luz (detalhe decorativo) */
+.maquina::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 10px; height: 100%;
+    background: rgba(255,255,255,0.18);
+    pointer-events: none;
+}
+
+/* Faixa lateral direita sombra (detalhe decorativo) */
+.maquina::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 8px; height: 100%;
+    background: rgba(0,0,0,0.2);
+    pointer-events: none;
+}
+
+/* --- Topo da maquina com faixa de cor --- */
+.topo-maquina {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    position: relative;
+}
+
+/* Luzes LED decorativas no topo */
+.luzes-led {
+    display: flex;
+    gap: 6px;
+}
+
+.led {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--preto);
+    animation: piscaLed 1.5s step-end infinite;
+}
+
+.led:nth-child(1) { background: var(--verde);   animation-delay: 0s;    }
+.led:nth-child(2) { background: var(--amarelo); animation-delay: 0.5s;  }
+.led:nth-child(3) { background: var(--vermelho); animation-delay: 1.0s; }
+
+@keyframes piscaLed {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.2; }
+}
+
+.logo-maquina {
+    font-size: 1.3rem;
+    color: var(--branco);
+    text-align: center;
+    text-shadow:
+        3px  3px 0 var(--preto),
+       -1px -1px 0 var(--preto);
+    letter-spacing: 3px;
+}
+
+.logo-maquina span { color: var(--laranja-claro); }
+
+/* --- Faixa horizontal decorativa abaixo do logo --- */
+.faixa-decorativa {
+    height: 10px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--azul-escuro)   0px, var(--azul-escuro)   12px,
+        var(--laranja-claro) 12px, var(--laranja-claro) 14px
+    );
+    margin-bottom: 14px;
+    border-top: 3px solid var(--preto);
+    border-bottom: 3px solid var(--preto);
+}
+
+/* --- Interior da maquina --- */
+.interior-maquina {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+/* --- Parafusos nos cantos (detalhe geometrico) --- */
+.parafuso {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ddd, #666);
+    border: 2px solid var(--preto);
+    position: absolute;
+    box-shadow: 1px 1px 0 rgba(0,0,0,0.6);
+}
+
+.parafuso::after {
+    content: '+';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.5rem;
+    color: var(--cinza-escuro);
+    line-height: 1;
+}
+
+.parafuso-tl { top:  8px; left:  8px; }
+.parafuso-tr { top:  8px; right: 8px; }
+.parafuso-bl { bottom: 8px; left:  8px; }
+.parafuso-br { bottom: 8px; right: 8px; }
+
+/* ==============================
+   VITRINE DOS REFRIS
+   ============================== */
+.vitrine {
+    flex: 2;
+    background: linear-gradient(160deg, #1a6ea8 0%, var(--azul-medio) 60%, var(--azul-claro) 100%);
+    padding: 14px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    min-height: 340px;
+    position: relative;
+    border-color: var(--branco);
+}
+
+/* Reflexo simulando vidro da vitrine */
+.vitrine::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 28px;
+    background: rgba(255,255,255,0.22);
+    pointer-events: none;
+}
+
+/* Trilha vertical decorativa entre colunas */
+.vitrine::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    width: 4px; height: 100%;
+    background: rgba(0,0,0,0.15);
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.item-refri {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--branco);
+    border: 4px solid var(--preto);
+    box-shadow: 3px 3px 0 var(--cinza-escuro);
+    padding: 12px 6px 8px;
+    position: relative;
+    transition: transform 0.1s;
+    cursor: pointer;
+}
+
+.item-refri:hover {
+    transform: translateY(-4px);
+    background: var(--laranja-claro);
+    box-shadow: 3px 8px 0 var(--cinza-escuro);
+}
+
+/* Fundo chequerboard circular para imagens com transparencia */
+.wrapper-imagem {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+    border: 3px solid var(--preto);
+    overflow: hidden;
+    background-color: #e0e0e0;
+    background-image:
+        linear-gradient(45deg, #ccc 25%, transparent 25%),
+        linear-gradient(-45deg, #ccc 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #ccc 75%),
+        linear-gradient(-45deg, transparent 75%, #ccc 75%);
+    background-size: 10px 10px;
+    background-position: 0 0, 0 5px, 5px -5px, -5px 0;
+}
+
+.item-refri img {
+    width: 50px; height: 50px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    filter:
+        drop-shadow(2px 0 0 rgba(0,0,0,0.35))
+        drop-shadow(-2px 0 0 rgba(0,0,0,0.35))
+        drop-shadow(0 2px 0 rgba(0,0,0,0.35))
+        drop-shadow(0 -2px 0 rgba(0,0,0,0.35));
+}
+
+.nome-refri {
+    font-size: 0.42rem;
+    color: var(--preto);
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 4px;
+    height: 20px;
+    overflow: hidden;
+}
+
+.preco-refri {
+    color: var(--azul-escuro);
+    font-family: 'VT323', monospace;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.numero-refri {
+    position: absolute;
+    top: -10px; left: -10px;
+    background: var(--preto);
+    color: var(--laranja-claro);
+    width: 26px; height: 26px;
+    line-height: 26px;
+    text-align: center;
+    font-family: 'VT323', monospace;
+    font-size: 1.1rem;
+    border: 2px solid var(--laranja);
+}
+
+.carregando {
+    grid-column: 1 / -1;
+    align-self: center;
+    text-align: center;
+    font-size: 0.7rem;
+    line-height: 2;
+    color: var(--preto);
+    animation: piscar 1s step-end infinite;
+}
+
+.erro-texto {
+    grid-column: 1 / -1;
+    align-self: center;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--vermelho);
+    line-height: 2;
+}
+
+@keyframes piscar { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+/* ==============================
+   PAINEL DE CONTROLE (LATERAL)
+   ============================== */
+.painel-controle {
+    flex: 1;
+    background: linear-gradient(160deg, #a9b2bc 0%, #7b8794 100%);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+/* Listras diagonais decorativas no fundo do painel */
+.painel-controle::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent          0px, transparent          8px,
+        rgba(0,0,0,0.04)    8px, rgba(0,0,0,0.04)    9px
+    );
+    pointer-events: none;
+}
+
+/* Visor LED */
+.visor {
+    background: #0a0a0a;
+    padding: 10px;
+    text-align: right;
+    border-color: var(--cinza-escuro);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Reflexo na tela do visor */
+.visor::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 8px;
+    background: rgba(255,255,255,0.06);
+    pointer-events: none;
+}
+
+.titulo-visor {
+    font-size: 0.42rem;
+    color: var(--cinza-medio);
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+}
+
+.valor-visor {
+    font-family: 'VT323', monospace;
+    font-size: 2.3rem;
+    color: var(--verde);
+    text-shadow: 0 0 8px rgba(0,228,54,0.6), 2px 2px 0 rgba(0,0,0,0.8);
+}
+
+/* Botoes numerados */
+.grade-botoes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+}
+
+.botao-refri {
+    background: linear-gradient(180deg, var(--laranja) 0%, #cc8000 100%);
+    border: 4px solid var(--preto);
+    box-shadow: 0 4px 0 var(--cinza-escuro);
+    color: var(--branco);
+    padding: 9px 0;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-shadow: 2px 2px 0 var(--preto);
+    transition: all 0.05s;
+    position: relative;
+}
+
+/* Detalhe nos botoes: pequena luz */
+.botao-refri::before {
+    content: '';
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 5px; height: 3px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 2px;
+}
+
+.botao-refri:hover {
+    background: linear-gradient(180deg, var(--laranja-claro) 0%, var(--laranja) 100%);
+}
+
+.botao-refri:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 var(--preto);
+}
+
+/* Tela de mensagens */
+.tela-mensagem {
+    background: #080808;
+    padding: 10px;
+    font-size: 0.44rem;
+    color: var(--branco);
+    min-height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.7;
+    border-color: var(--cinza-escuro);
+}
+
+.tela-mensagem.sucesso { color: var(--verde);    text-shadow: 0 0 6px rgba(0,228,54,0.7); }
+.tela-mensagem.erro    { color: var(--vermelho); text-shadow: 0 0 6px rgba(255,0,77,0.7); }
+.tela-mensagem.info    { color: var(--laranja); }
+
+/* Fenda de moedas */
+.area-pagamento { margin-top: auto; text-align: center; }
+
+.envoltorio-fenda span {
+    font-size: 0.4rem;
+    color: var(--azul-escuro);
+    display: block;
+    margin-top: 4px;
+}
+
+.fenda-moeda {
+    width: 55px; height: 75px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #444 0%, var(--cinza-escuro) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-color: var(--preto);
+    transition: all 0.15s;
+    position: relative;
+}
+
+/* Seta decorativa acima da fenda */
+.fenda-moeda::before {
+    content: 'v';
+    position: absolute;
+    top: -18px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.5rem;
+    color: var(--laranja-claro);
+    animation: piscar 1.2s step-end infinite;
+}
+
+.buraco-fenda {
+    width: 8px; height: 42px;
+    background: var(--preto);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,1);
+}
+
+.fenda-moeda.arrastando-sobre {
+    border-color: var(--verde);
+    background: linear-gradient(180deg, #668 0%, #99a 100%);
+    box-shadow: 0 0 0 4px rgba(0,228,54,0.35);
+}
+
+/* ==============================
+   BARRA LATERAL DECORATIVA
+   Painel vertical na borda esquerda da vitrine
+   ============================== */
+.barra-lateral {
+    width: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 0;
+    justify-content: center;
+}
+
+.decoracao-quadrado {
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--preto);
+}
+
+.decoracao-quadrado:nth-child(odd)  { background: var(--laranja-claro); }
+.decoracao-quadrado:nth-child(even) { background: var(--azul-escuro);   }
+
+/* ==============================
+   RODAPE COM DETALHES
+   ============================== */
+.rodape-maquina {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+/* Termometro decorativo */
+.termometro {
+    width: 18px;
+    background: var(--cinza-escuro);
+    border: 3px solid var(--preto);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+.mercurio {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(0deg, var(--vermelho) 0%, var(--laranja) 100%);
+    height: 60%;
+    animation: oscilarTemp 3s ease-in-out infinite alternate;
+}
+
+@keyframes oscilarTemp {
+    0%   { height: 45%; }
+    100% { height: 75%; }
+}
+
+/* Caixa de informacoes da maquina */
+.info-rodape {
+    flex: 1;
+    background: var(--preto);
+    border: 3px solid var(--cinza-escuro);
+    padding: 8px;
+    font-family: 'VT323', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--cinza-claro);
+}
+
+.info-rodape span { color: var(--verde); }
+
+/* Botao de musica */
+.btn-musica-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+#btn-musica {
+    background: var(--azul-escuro);
+    border: 3px solid var(--preto);
+    color: var(--branco);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.38rem;
+    padding: 8px 6px;
+    cursor: pointer;
+    height: 80px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    box-shadow: 2px 2px 0 var(--cinza-escuro);
+    transition: all 0.1s;
+}
+
+#btn-musica:hover  { background: var(--roxo);       }
+#btn-musica.ativo  { background: var(--verde-escuro); color: var(--verde); }
+#btn-musica:active { transform: scale(0.95); }
+
+/* ==============================
+   DISPENSADOR (BANDEJA)
+   ============================== */
+.dispensador {
+    background: #080808;
+    height: 110px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: visible;
+    /* Grade de ventilas decorativas no rodape */
+    border-top: 4px solid var(--preto);
+}
+
+/* Ventilas decorativas no fundo do dispensador */
+.dispensador::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 6px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--preto)      0px, var(--preto)      10px,
+        var(--cinza-escuro) 10px, var(--cinza-escuro) 14px
+    );
+}
+
+.tampa-dispensador {
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 100%;
+    background: linear-gradient(180deg, #4a474a 0%, #2a272a 100%);
+    border-bottom: 4px solid var(--preto);
+    transform-origin: top;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: rgba(0,0,0,0.35);
+    transition: transform 0.3s ease-in-out;
+    z-index: 2;
+}
+
+.area-saida {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+/* Lata animada */
+.lata-caindo {
+    height: 65px;
+    cursor: pointer;
+    image-rendering: pixelated;
+    animation: cair 0.5s ease-out forwards;
+    filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.7));
+}
+
+.lata-caindo:hover {
+    filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.7)) brightness(1.2);
+}
+
+.lata-saindo {
+    animation: pegarLata 1.8s ease-in forwards !important;
+}
+
+@keyframes cair {
+    0%   { transform: translateY(-60px); opacity: 0; }
+    70%  { transform: translateY(8px);   opacity: 1; }
+    100% { transform: translateY(0);     opacity: 1; }
+}
+
+@keyframes pegarLata {
+    0%   { transform: translateX(0)      scale(1);   opacity: 1; }
+    30%  { transform: translateX(-60px)  scale(1.3); opacity: 1; }
+    70%  { transform: translateX(-180px) scale(1.7); opacity: 0.6; }
+    100% { transform: translateX(-280px) scale(2);   opacity: 0; }
+}
+
+/* ==============================
+   CARTEIRA
+   ============================== */
+.envoltorio-carteira {
+    background: linear-gradient(160deg, #263445 0%, var(--azul-escuro) 100%);
+    border-color: var(--laranja);
+    padding: 18px;
+    text-align: center;
+    width: 285px;
+    height: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+/* Canto superior da carteira: tag colorida */
+.envoltorio-carteira::before {
+    content: 'WALLET';
+    position: absolute;
+    top: -18px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--laranja);
+    color: var(--preto);
+    font-size: 0.42rem;
+    padding: 4px 8px;
+    border: 3px solid var(--preto);
+    white-space: nowrap;
+}
+
+.titulo-carteira {
+    font-size: 0.72rem;
+    color: var(--laranja-claro);
+    text-shadow: 2px 2px 0 var(--preto);
+}
+
+.instrucao-carteira {
+    font-size: 0.38rem;
+    color: var(--cinza-medio);
+    line-height: 1.7;
+}
+
+/* Painel de resumo de moedas */
+.resumo-dinheiro {
+    background: #050505;
+    border-color: var(--laranja);
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.linha-resumo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.label-resumo { font-size: 0.38rem; color: var(--cinza-claro); }
+.qtd-resumo   { font-family: 'VT323', monospace; font-size: 1.15rem; color: var(--verde); }
+
+.total-resumo {
+    border-top: 2px solid var(--cinza-escuro);
+    padding-top: 5px; margin-top: 2px;
+}
+.total-resumo .label-resumo { color: var(--laranja-claro); }
+.total-resumo .qtd-resumo   { color: var(--laranja-claro); }
+
+/* Area com moedas soltas */
+.carteira {
+    position: relative;
+    flex-grow: 1;
+    background-color: #b0bcc8;
+    background-image:
+        linear-gradient(45deg, #9facb8 25%, transparent 25%),
+        linear-gradient(-45deg, #9facb8 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #9facb8 75%),
+        linear-gradient(-45deg, transparent 75%, #9facb8 75%);
+    background-size: 12px 12px;
+    background-position: 0 0, 0 6px, 6px -6px, -6px 0;
+    border: 4px solid var(--preto);
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+
+/* ==============================
+   MOEDAS
+   ============================== */
+.moeda {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    cursor: grab;
+    user-select: none;
+    position: absolute;
+    border: 4px solid var(--preto);
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.6);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.moeda:hover   { transform: scale(1.15); box-shadow: 4px 4px 0 rgba(0,0,0,0.7); }
+.moeda:active  { cursor: grabbing; }
+.moeda.arrastando { opacity: 0; }
+
+.interior-moeda {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    font-family: 'VT323', monospace;
+    font-size: 1.1rem;
+    color: var(--preto);
+    font-weight: bold;
+}
+
+.moeda-25  { background: radial-gradient(circle at 35% 35%, #e0e4ee, #9fa3ab); }
+.moeda-50  { background: radial-gradient(circle at 35% 35%, #ffe97a, #c8930a); }
+.moeda-100 { background: radial-gradient(circle at 35% 35%, #fff0cc, #d4a831); border-color: #b8950f; }
+
+/* ==============================
+   RESPONSIVIDADE
+   ============================== */
+@media (max-width: 1100px) {
+    .container-principal { flex-direction: column; align-items: center; }
+    .maquina { width: 95vw; }
+    .envoltorio-carteira { width: 95vw; height: auto; }
+    .carteira { min-height: 200px; }
+}
